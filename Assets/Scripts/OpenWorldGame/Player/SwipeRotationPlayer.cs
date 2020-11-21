@@ -34,8 +34,8 @@ public class SwipeRotationPlayer : MonoBehaviour
                 float x = initTouch.position.x - touch.position.x;
                 float y = initTouch.position.y - touch.position.y;
                 
-                xRotation -= Mathf.Clamp(y * Time.deltaTime * rotationSpeed, -90f, 90f);
-                yRotation += Mathf.Clamp(x * Time.deltaTime * rotationSpeed, -90f, 90f);
+                xRotation += Mathf.Clamp(y * Time.deltaTime * rotationSpeed, -90f, 90f);
+                yRotation -= Mathf.Clamp(x * Time.deltaTime * rotationSpeed, -90f, 90f);
                 
                 cam.transform.eulerAngles = new Vector3(xRotation, yRotation, 0f);
             }
