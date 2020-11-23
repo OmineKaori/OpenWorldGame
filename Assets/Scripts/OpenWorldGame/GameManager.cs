@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public void EndGame()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Menu");
     }
     
     public void Resume()
