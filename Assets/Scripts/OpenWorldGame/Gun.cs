@@ -26,9 +26,7 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = shootingSound;
-
+        audioSource = Player.instance.audioSource;
         if (currentAmmo == -1)
         {
             currentAmmo = maxAmmo;
@@ -55,7 +53,7 @@ public class Gun : MonoBehaviour
         
         yield return new WaitForSeconds(reloadTime);
         
-        audioSource.PlayOneShot(shootingSound);
+        audioSource.PlayOneShot(gunReloading);
         animator.SetBool(Reloading, false);
         
         currentAmmo = maxAmmo;

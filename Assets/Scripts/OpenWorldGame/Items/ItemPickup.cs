@@ -4,6 +4,14 @@ public class ItemPickup : Interactable
 {
     public Item item;
     
+    AudioSource audioSource;
+    public AudioClip gettingItem;
+
+    void Start()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
+    
     public override void Interact()
     {
         base.Interact();
@@ -15,6 +23,10 @@ public class ItemPickup : Interactable
         Debug.Log("Picking up " + item.name);
         bool wasPickedUp = Inventory.instance.Add(item);
 
-        if (wasPickedUp) { Destroy(gameObject); }
+        if (wasPickedUp)
+        {
+            audioSource.PlayOneShot(gettingItem);
+            Destroy(gameObject);
+        }
     }
 }

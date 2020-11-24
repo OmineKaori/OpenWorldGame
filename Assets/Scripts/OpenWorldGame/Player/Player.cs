@@ -19,13 +19,12 @@ public class Player : MonoBehaviour
     #endregion
     
     public AudioClip fallingSound;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     private GameManager gameManager;
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     public void KillPlayer()

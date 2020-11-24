@@ -5,6 +5,14 @@ using UnityEngine;
 public class Gate : Interactable
 {
     public GameObject destroyedVersion;
+    public AudioClip gateBreaking;
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = gateBreaking;
+    }
 
     public override void Interact()
     {
@@ -16,6 +24,7 @@ public class Gate : Interactable
 
     public void Open()
     {
+        audioSource.Play();
         Instantiate(destroyedVersion, transform.position, transform.rotation);
         Destroy(gameObject);
     }

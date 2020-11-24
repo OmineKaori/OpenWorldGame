@@ -9869,7 +9869,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 10
   interactionTransform: {fileID: 3752370001643338711}
-  player: {fileID: 0}
 --- !u!114 &3752370001643338700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9914,7 +9913,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackSpeed: 1
   attackDelay: 0.6
-  gun: {fileID: 0}
+  damage: 10
+  range: 100
+  impactForce: 30
+  originObject: {fileID: 3752370001988866857}
+  shootingSound: {fileID: 8300000, guid: dba98dfa92c1642cf832b486beaadf31, type: 3}
+  muzzleFlash: {fileID: 3752370001611733269}
 --- !u!1 &3752370001738059621
 GameObject:
   m_ObjectHideFlags: 0
@@ -14756,7 +14760,6 @@ GameObject:
   - component: {fileID: 3752370001988866857}
   - component: {fileID: 3752370001988866871}
   - component: {fileID: 3752370001988866856}
-  - component: {fileID: 666005617}
   m_Layer: 0
   m_Name: CannonMachine_Cannon
   m_TagString: Untagged
@@ -14827,27 +14830,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &666005617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3752370001988866858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fe93caf1065b4eecba4352da1548ece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
-  range: 100
-  fireRate: 15
-  impactForce: 30
-  maxAmmo: 10
-  reloadTime: 1
-  shootingSound: {fileID: 8300000, guid: cd6aa76e77a1c493d9948b478cc44201, type: 3}
-  originObject: {fileID: 1844892699}
-  muzzleFlash: {fileID: 3752370001611733269}
 --- !u!1 &3752370002417029675
 GameObject:
   m_ObjectHideFlags: 0
