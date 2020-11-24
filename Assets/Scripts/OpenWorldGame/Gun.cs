@@ -1,32 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Experimental.TerrainAPI;
 
 public class Gun : MonoBehaviour
 {
 
     public int damage = 10;
     public float range = 100f;
-    public float fireRate = 15f;
     public float impactForce = 30f;
     private bool isReloading = false;
 
     public int maxAmmo = 10;
-    private int currentAmmo;
+    private int currentAmmo = -1;
     public float reloadTime = 1f;
 
     public AudioClip shootingSound;
+    public AudioClip gunReloading;
     private AudioSource audioSource;
+
+    public Animator animator;
     
     public Transform originObject;
     public ParticleSystem muzzleFlash;
-
-    private float nextTimeToFire = 0f;
+    private static readonly int Reloading = Animator.StringToHash("Reloading");
 
     void Start()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = shootingSound;
-        
+
         if (currentAmmo == -1)
         {
             currentAmmo = maxAmmo;
@@ -41,7 +43,6 @@ public class Gun : MonoBehaviour
         if (currentAmmo <= 0)
         {
             StartCoroutine(Reload());
-            return;
         }
     }
 
@@ -50,7 +51,12 @@ public class Gun : MonoBehaviour
         isReloading = true;
         Debug.Log("Reloading...");
         
+        animator.SetBool(Reloading, true);
+        
         yield return new WaitForSeconds(reloadTime);
+        
+        audioSource.PlayOneShot(shootingSound);
+        animator.SetBool(Reloading, false);
         
         currentAmmo = maxAmmo;
         isReloading = false;
@@ -58,6 +64,9 @@ public class Gun : MonoBehaviour
     
     public void Shoot()
     {
+        if (isReloading)
+            return;
+        
         muzzleFlash.Play();
 
         currentAmmo--;
@@ -77,9 +86,6 @@ public class Gun : MonoBehaviour
             }
         }
         
-        if (Input.GetButtonDown("Fire1"))
-            audioSource.Play();
-        if (Input.GetButtonUp("Fire1"))
-            audioSource.Stop();
+        audioSource.PlayOneShot(shootingSound);
     }
 }

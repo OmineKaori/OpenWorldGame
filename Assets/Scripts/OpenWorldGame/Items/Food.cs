@@ -11,7 +11,7 @@ public class Food : Item
     {
         base.Use();
 
-        PlayerStats playerStats = PlayerManager.instance.player.GetComponent<PlayerStats>();
+        PlayerStats playerStats = Player.instance.GetComponent<PlayerStats>();
         playerStats.HealHealth(healthValue);
         RemoveFromInventory();
     }

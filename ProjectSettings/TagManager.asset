@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Fire
   - SwipeField
+  - Goal
   layers:
   - Default
   - TransparentFX

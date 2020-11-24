@@ -17,7 +17,7 @@ public class CharacterStats : MonoBehaviour
 
     public void HealHealth (int value)
     {
-        currentHealth += value;
+        currentHealth = maxHealth < currentHealth + value ? maxHealth : currentHealth + value;
         healthBar.SetHealth(currentHealth);
     }
     

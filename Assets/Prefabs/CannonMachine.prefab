@@ -9886,6 +9886,7 @@ MonoBehaviour:
   healthBar: {fileID: 3752370001403319083}
   damage:
     baseValue: 5
+  explosion: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 3}
 --- !u!114 &3752370001643338699
 MonoBehaviour:
   m_ObjectHideFlags: 0

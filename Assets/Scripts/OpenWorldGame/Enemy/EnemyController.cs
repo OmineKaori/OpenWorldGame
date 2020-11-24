@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
     
     void Start()
     {
-        target = PlayerManager.instance.player.transform;
+        target = Player.instance.transform;
         agent = GetComponent<NavMeshAgent>();
         combat = GetComponent<EnemyCombat>();
     }

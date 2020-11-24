@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats
 {
+    public GameObject explosion;
+    
     public override void Die()
     {
         base.Die();
         
-        // Add death animation
-        
+        Destroy(Instantiate(explosion, transform.position, Quaternion.identity), 10);
         Destroy(gameObject);
     }
 }
