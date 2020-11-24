@@ -8,29 +8,27 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
     private AudioSource audioSource;
-    private GameManager gameManager;
 
     // JoyStickを使っての移動 
     public Joystick joystick;
     public float speed = 12f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
-    public AudioClip walkingSound;
     
     // SwipeでRotateする
     public Camera cam;
     public float cameraSensitivity = 1f;
     public float swipeAvailableWidth; // 画面の右半分をSwipeすると視点を変えることができる(JoyStickと重ならないようにするため)
-    private Touch initTouch;
+    private bool isTouched = false;
     private float xRotation = 0f;
     private Vector2 lookInput;
     
     // Jump
     private Vector3 velocity;
+    public AudioClip jumping;
 
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
         audioSource = gameObject.AddComponent<AudioSource>();
         swipeAvailableWidth = Screen.width / 2;
     }
@@ -50,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = transform.right * joystick.Horizontal + transform.forward * joystick.Vertical;
         if (GroundCheck.instance.isGrounded)
         {
-            audioSource.clip = walkingSound;
             controller.Move(move * (speed * Time.deltaTime));
         }
         
@@ -71,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
             switch (touch.phase)
             {
                 case TouchPhase.Began:
-                    initTouch = touch;
+                    isTouched = true;
                     break;
                 
                 case TouchPhase.Moved:
@@ -79,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
                     break;
                 
                 case TouchPhase.Canceled:
-                    initTouch = new Touch();
+                    isTouched = false;
                     break;
                 
                 case TouchPhase.Stationary:
@@ -87,17 +84,21 @@ public class PlayerMovement : MonoBehaviour
                     break;
             }
         }
-        
-        xRotation = Mathf.Clamp(xRotation - lookInput.y, -90f, 90f);
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        
-        transform.Rotate(transform.up * lookInput.x);
+
+        if (isTouched)
+        {
+            xRotation = Mathf.Clamp(xRotation - lookInput.y, -90f, 90f);
+            cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+            
+            transform.Rotate(transform.up * lookInput.x);
+        }
     }
     
     public void Jump()
     {
         if (GroundCheck.instance.isGrounded)
         {
+            audioSource.PlayOneShot(jumping);
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             GroundCheck.instance.isGrounded = false;
         }

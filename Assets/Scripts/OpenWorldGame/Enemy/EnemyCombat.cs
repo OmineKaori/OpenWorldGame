@@ -10,8 +10,6 @@ public class EnemyCombat : MonoBehaviour
 
     public float attackDelay = .6f;
 
-    public event System.Action OnAttack;
-
     private CharacterStats myStats;
 
     public int damage = 10;
@@ -39,8 +37,6 @@ public class EnemyCombat : MonoBehaviour
         if (attackCooldown <= 0f)
         {
             StartCoroutine(DoDamage(targetStats, attackDelay));
-
-            OnAttack?.Invoke();
 
             attackCooldown = 1f / attackSpeed;
         }
